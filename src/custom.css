@@ -1,11 +1,16 @@
 /*
 Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.scss.
-        on line 1 of custom.scss
+        on line 20 of custom.scss
 
-1: @import '~bootstrap/scss/bootstrap.scss';
+15: .base-timer__path-elapsed {
+16:   stroke-width: 7px;
+17:   stroke: grey;
+18: }
+19: 
+20: @import '~bootstrap/scss/bootstrap.scss';
 
 Backtrace:
-custom.scss:1
+custom.scss:20
 /Users/Raman/.rvm/gems/ruby-2.4.2/gems/sass-3.4.22/lib/sass/tree/import_node.rb:67:in `rescue in import'
 /Users/Raman/.rvm/gems/ruby-2.4.2/gems/sass-3.4.22/lib/sass/tree/import_node.rb:45:in `import'
 /Users/Raman/.rvm/gems/ruby-2.4.2/gems/sass-3.4.22/lib/sass/tree/import_node.rb:28:in `imported_file'
@@ -43,4 +48,4 @@ custom.scss:1
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.scss.\A         on line 1 of custom.scss\A \A 1: @import '~bootstrap/scss/bootstrap.scss';"; }
+  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.scss.\A         on line 20 of custom.scss\A \A 15: .base-timer__path-elapsed {\A 16:   stroke-width: 7px;\A 17:   stroke: grey;\A 18: }\A 19: \A 20: @import '~bootstrap/scss/bootstrap.scss';"; }

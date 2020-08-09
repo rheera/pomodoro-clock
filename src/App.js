@@ -6,7 +6,7 @@ class Time extends React.Component {
     render() {
         return (
             <div id={"timer-div"}>
-
+                5:00
             </div>
         )
     }
@@ -23,7 +23,7 @@ class Wheel extends React.Component {
                         </g>
                     </svg>
                     <span>
-    <!-- Remaining time label -->
+                        <Time />
                     </span>
                 </div>
             </div>
@@ -35,9 +35,8 @@ class Clock extends React.Component {
     render() {
         return (
             <div id={"clock-div"}>
-                <h2>Session/Break</h2>
+                <h2 className={"text-center"}>Session/Break</h2>
                 <Wheel />
-                <Time />
             </div>
         )
     }
