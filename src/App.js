@@ -76,37 +76,24 @@ class Wheel extends React.Component {
 
     render() {
 
-        // Warning occurs at 10s
-        const WARNING_THRESHOLD = 10;
-        // Alert occurs at 5s
-        const ALERT_THRESHOLD = 5;
-
-        const COLOR_CODES = {
-            info: {
-                color: "green"
-            },
-            warning: {
-                color: "orange",
-                threshold: WARNING_THRESHOLD
-            },
-            alert: {
-                color: "red",
-                threshold: ALERT_THRESHOLD
-            }
-        };
-        let remainingPathColor = COLOR_CODES.info.color;
-
         return (
             <div id={"wheel-div"}>
                 <div className="base-timer">
                     <svg className="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                         <g className="base-timer__circle">
+                            // defs allows the path_remaining circle to be a gradient
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#00bc9b" />
+                                    <stop offset="100%" stop-color="#5EAEFD" />
+                                </linearGradient>
+                            </defs>
                             <circle className="base-timer__path-elapsed" cx="50" cy="50" r="45"/>
                             <path
                                 id="base-timer-path-remaining"
                                 stroke-dasharray="283 283"
                                 className={"base-timer__path-remaining"}
-                                style={{color: remainingPathColor}}
+                                stroke="url(#gradient)"
                                 d="
                                 M 50, 50
                                 m -45, 0
