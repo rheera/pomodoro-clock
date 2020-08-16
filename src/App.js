@@ -7,7 +7,7 @@ class Time extends React.Component {
 
 
     render() {
-        const START_TIME = 20;
+        const START_TIME = 10;
         let timeLeft = START_TIME;
         let timerInterval = null;
         let timePassed = 0;
@@ -40,10 +40,16 @@ class Time extends React.Component {
 
                 // The time left label is updated
                 document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
-
                 setCircleDasharray();
+
+                if (timeLeft == 0) {
+                    clearInterval(timerInterval)
+                }
             }, 1000);
+
+
         }
+
 
         // Divides time left by the defined time limit.
         function calculateTimeFraction() {
