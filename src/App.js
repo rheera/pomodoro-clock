@@ -57,7 +57,7 @@ class Time extends React.Component {
             return rawTimeFraction - (1 / START_TIME) * (1 - rawTimeFraction);
         }
 
-// Update the dasharray value as time passes, starting with 283
+        // Update the dasharray value as time passes, starting with 283
         function setCircleDasharray() {
             const circleDasharray = `${(
                 calculateTimeFraction() * FULL_DASH_ARRAY
@@ -122,7 +122,7 @@ class Clock extends React.Component {
     render() {
         return (
             <div id={"clock-div"}>
-                <h2 className={"text-center"}>Session/Break</h2>
+                <h2 className={"text-center title"}>Session/Break</h2>
                 <Wheel />
             </div>
         )
@@ -133,8 +133,17 @@ class Clock extends React.Component {
 class Settings extends React.Component {
     render() {
         return (
-            <div id={"settings-div"}>
-
+            <div id={"settings-div"} className={"d-flex justify-content-around"}>
+                <div id={"break-length-div"} className={"length-div"}>
+                    <button id={"break-minus-button"} className={"btn length-button"}>-</button>
+                    Time
+                    <button id={"break-plus-button"} className={"btn length-button"}>+</button>
+                </div>
+                <div id={"session-length-div"} className={"length-div"}>
+                    <button id={"session-minus-button"} className={"btn length-button"}>-</button>
+                    Time
+                    <button id={"session-plus-button"} className={"btn length-button"}>+</button>
+                </div>
             </div>
         )
     }

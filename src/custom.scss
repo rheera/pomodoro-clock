@@ -14,7 +14,7 @@
 /* The SVG path that displays the timer's progress */
 .base-timer__path-elapsed {
   stroke-width: 5px;
-  stroke: white;
+  stroke: black;
 }
 
 .base-timer__label {
@@ -55,6 +55,11 @@
 .base-timer__svg {
   /* Flips the svg and makes the animation to move left-to-right */
   transform: scaleX(-1);
+}
+
+#root {
+  background: #2a2a2a;
+  color: #c8c8c8;
 }
 
 
