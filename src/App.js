@@ -1,7 +1,20 @@
 import React from 'react';
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
 
 
-
+class DarkMode extends  React.Component {
+    render() {
+        function func(){
+            ('#chkToggle2').bootstrapToggle()
+        }
+        return (
+            <div id={"dark-mode-div"}>
+                <BootstrapSwitchButton checked={true} onlabel="Dark Mode" offlabel="Light Mode" onstyle="dark"
+                                       width={500} offstyle="light" style="border"/>
+            </div>
+        )
+    }
+}
 class Time extends React.Component {
 
 
@@ -163,6 +176,7 @@ class AppWrapper extends React.Component {
             <div className={"container-fluid"}>
                 <div className={"d-flex justify-content-md-center align-items-center vh-100"}>
                     <div>
+                        <DarkMode />
                         <Clock />
                         <Settings />
                     </div>
