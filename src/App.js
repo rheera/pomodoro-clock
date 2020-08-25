@@ -4,13 +4,15 @@ import BootstrapSwitchButton from "bootstrap-switch-button-react";
 
 class DarkMode extends  React.Component {
     render() {
-        function func(){
-            ('#chkToggle2').bootstrapToggle()
+        function myFunction() {
+                let element = document.body;
+                element.classList.toggle('dark-mode');
         }
+
         return (
             <div id={"dark-mode-div"}>
-                <BootstrapSwitchButton checked={true} onlabel="Dark Mode" offlabel="Light Mode" onstyle="dark"
-                                       width={500} offstyle="light" style="border"/>
+                <BootstrapSwitchButton checked={false} onlabel="Light Mode ☀️" offlabel="Dark Mode 🌙" onstyle="dark"
+                                       width={150} offstyle="light" style="border" onChange={myFunction}/>
             </div>
         )
     }
@@ -103,14 +105,14 @@ class Wheel extends React.Component {
                             // defs allows the path_remaining circle to be a gradient
                             <defs>
                                 <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stop-color="#00bc9b" />
-                                    <stop offset="100%" stop-color="#5EAEFD" />
+                                    <stop offset="0%" stopColor="#00bc9b" />
+                                    <stop offset="100%" stopColor="#5EAEFD" />
                                 </linearGradient>
                             </defs>
                             <circle className="base-timer__path-elapsed" cx="50" cy="50" r="45"/>
                             <path
                                 id="base-timer-path-remaining"
-                                stroke-dasharray="283 283"
+                                strokeDasharray="283 283"
                                 className={"base-timer__path-remaining"}
                                 stroke="url(#gradient)"
                                 d="

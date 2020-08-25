@@ -3,6 +3,7 @@
   position: relative;
   height: 300px;
   width: 300px;
+  margin: auto;
 }
 
 /* Removes SVG styling that would hide the time label */
@@ -13,8 +14,8 @@
 
 /* The SVG path that displays the timer's progress */
 .base-timer__path-elapsed {
-  stroke-width: 5px;
-  stroke: black;
+  stroke-width: 0.5px;
+  stroke: #181818;
 }
 
 .base-timer__label {
@@ -57,9 +58,20 @@
   transform: scaleX(-1);
 }
 
-#root {
+body {
+  background: white;
+  color: black;
+}
+
+.dark-mode {
   background: #2a2a2a;
   color: #c8c8c8;
+}
+
+#dark-mode-div {
+  position:absolute;
+  top:0;
+  right:0;
 }
 
 
