@@ -7,6 +7,9 @@ class DarkMode extends  React.Component {
         function myFunction() {
                 let element = document.body;
                 element.classList.toggle('dark-mode');
+                document.getElementById("app-container").classList.toggle('container-dark-mode');
+                document.getElementById('settings-div').classList.toggle('button-dark');
+
         }
 
         return (
@@ -150,14 +153,14 @@ class Settings extends React.Component {
         return (
             <div id={"settings-div"} className={"d-flex justify-content-around"}>
                 <div id={"break-length-div"} className={"length-div"}>
-                    <button id={"break-minus-button"} className={"btn length-button"}>-</button>
+                    <button id={"break-minus-button"} className={"btn length-button time-buttons"}>-</button>
                     Time
-                    <button id={"break-plus-button"} className={"btn length-button"}>+</button>
+                    <button id={"break-plus-button"} className={"btn length-button time-buttons"}>+</button>
                 </div>
                 <div id={"session-length-div"} className={"length-div"}>
-                    <button id={"session-minus-button"} className={"btn length-button"}>-</button>
+                    <button id={"session-minus-button"} className={"btn length-button time-buttons"}>-</button>
                     Time
-                    <button id={"session-plus-button"} className={"btn length-button"}>+</button>
+                    <button id={"session-plus-button"} className={"btn length-button time-buttons"}>+</button>
                 </div>
             </div>
         )
@@ -177,7 +180,7 @@ class AppWrapper extends React.Component {
         return (
             <div className={"container-fluid"}>
                 <div className={"d-flex justify-content-md-center align-items-center vh-100"}>
-                    <div>
+                    <div className={"app-container-class"} id={"app-container"}>
                         <DarkMode />
                         <Clock />
                         <Settings />
