@@ -171,6 +171,17 @@ class Settings extends React.Component {
     }
 }
 
+class Controls extends React.Component {
+    render() {
+        return (
+            <div id={"controls-div"} className={"d-flex justify-content-around"}>
+                <BootstrapSwitchButton checked={false} onlabel="▶️️" offlabel="⏸" onstyle="dark"
+                                       width={150} offstyle="light" style="border"/>
+            </div>
+        )
+    }
+}
+
 class AppWrapper extends React.Component {
     constructor(props) {
         super(props);
@@ -187,6 +198,7 @@ class AppWrapper extends React.Component {
                     <div className={"app-container-class"} id={"app-container"}>
                         <DarkMode />
                         <Clock />
+                        <Controls />
                         <Settings />
                     </div>
                 </div>
