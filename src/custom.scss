@@ -74,17 +74,17 @@ body {
   right:0;
 }
 
+#app-container {
+  background: #f8f9fa;
+}
+
 .app-container-class {
   padding: 2em;
   border-radius: 0.5em;
   box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 6px 30px rgba(0,0,0,0.4);
 }
 .container-dark-mode {
-  background: #2a2a2a;
+  background: #353a3f !important;
 }
-.button-dark {
-  color: #c8c8c8;
-}
-
 
 @import '~bootstrap/scss/bootstrap.scss';

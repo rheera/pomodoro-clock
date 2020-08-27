@@ -8,7 +8,11 @@ class DarkMode extends  React.Component {
                 let element = document.body;
                 element.classList.toggle('dark-mode');
                 document.getElementById("app-container").classList.toggle('container-dark-mode');
-                document.getElementById('settings-div').classList.toggle('button-dark');
+                document.getElementById('break-minus-button').classList.toggle('btn-dark');
+                document.getElementById('break-plus-button').classList.toggle('btn-dark');
+                document.getElementById('session-minus-button').classList.toggle('btn-dark');
+                document.getElementById('session-plus-button').classList.toggle('btn-dark');
+
 
         }
 
@@ -60,7 +64,7 @@ class Time extends React.Component {
                 document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
                 setCircleDasharray();
 
-                if (timeLeft == 0) {
+                if (timeLeft === 0) {
                     clearInterval(timerInterval)
                 }
             }, 1000);
@@ -153,14 +157,14 @@ class Settings extends React.Component {
         return (
             <div id={"settings-div"} className={"d-flex justify-content-around"}>
                 <div id={"break-length-div"} className={"length-div"}>
-                    <button id={"break-minus-button"} className={"btn length-button time-buttons"}>-</button>
+                    <button id={"break-minus-button"} className={"btn btn-light length-button btn-sm time-buttons"}>-</button>
                     Time
-                    <button id={"break-plus-button"} className={"btn length-button time-buttons"}>+</button>
+                    <button id={"break-plus-button"} className={"btn btn-light length-button btn-sm time-buttons"}>+</button>
                 </div>
                 <div id={"session-length-div"} className={"length-div"}>
-                    <button id={"session-minus-button"} className={"btn length-button time-buttons"}>-</button>
+                    <button id={"session-minus-button"} className={"btn btn-light btn-sm length-button time-buttons"}>-</button>
                     Time
-                    <button id={"session-plus-button"} className={"btn length-button time-buttons"}>+</button>
+                    <button id={"session-plus-button"} className={"btn btn-light btn-sm length-button time-buttons"}>+</button>
                 </div>
             </div>
         )
