@@ -25,11 +25,14 @@ class DarkMode extends  React.Component {
     }
 }
 class Time extends React.Component {
+    constructor(props) {
+        super(props);
 
+    }
 
 
     render() {
-        const START_TIME = 10;
+        const START_TIME = this.props.startTime;
         let timeLeft = START_TIME;
         let timerInterval = null;
         let timePassed = 0;
@@ -99,7 +102,9 @@ class Time extends React.Component {
 }
 
 class Wheel extends React.Component {
-
+    constructor(props) {
+        super(props);
+    }
 
 
     render() {
@@ -132,7 +137,7 @@ class Wheel extends React.Component {
                         </g>
                     </svg>
                     <span id="base-timer-label" className="base-timer__label">
-                        <Time />
+                        <Time startTime={this.props.startTime} />
                     </span>
                 </div>
             </div>
@@ -141,11 +146,14 @@ class Wheel extends React.Component {
 }
 
 class Clock extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         return (
             <div id={"clock-div"}>
                 <h2 className={"text-center title"}>Session/Break</h2>
-                <Wheel />
+                <Wheel startTime={this.props.startTime}/>
             </div>
         )
     }
@@ -175,8 +183,8 @@ class Controls extends React.Component {
     render() {
         return (
             <div id={"controls-div"} className={"d-flex justify-content-around"}>
-                <BootstrapSwitchButton checked={false} onlabel="▶️️" offlabel="⏸" onstyle="dark"
-                                       width={150} offstyle="light" style="border"/>
+                <BootstrapSwitchButton checked={false} onlabel="▶️️" offlabel="l l" onstyle="dark"
+                                       width={150} offstyle="dark" style="border"/>
             </div>
         )
     }
@@ -197,7 +205,7 @@ class AppWrapper extends React.Component {
                 <div className={"d-flex justify-content-md-center align-items-center vh-100"}>
                     <div className={"app-container-class"} id={"app-container"}>
                         <DarkMode />
-                        <Clock />
+                        <Clock startTime={20}/>
                         <Controls />
                         <Settings />
                     </div>
