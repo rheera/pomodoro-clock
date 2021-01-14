@@ -30,16 +30,18 @@ class Time extends React.Component {
 
 
     render() {
-        const START_TIME = this.props.sessionTime;
-        const BREAK_TIME = this.props.breakTime;
-        let timeLeft = START_TIME;
-        let timerInterval = null;
-        let timePassed = 0;
-        let breakFlag = 0;
 
-        const FULL_DASH_ARRAY = 283;
 
         function timeControl(sessionTime, breakTime) {
+
+            const START_TIME = sessionTime;
+            const BREAK_TIME = breakTime;
+            //let timeLeft = START_TIME;
+            //let timerInterval = null;
+            let breakFlag = false;
+
+            const FULL_DASH_ARRAY = 283;
+
             function formatTime(time) {
                 // The largest round integer less than or equal to the result of time divided being by 60.
                 const minutes = Math.floor(time / 60);
@@ -56,46 +58,52 @@ class Time extends React.Component {
                 return `${minutes}:${seconds}`;
             }
 
-            function startTimer() {
+            function startTimer(time) {
+                let timePassed = 0;
+                let timeLeft = time;
                 // setInterval is a method that will run code over and over at a certain interval in this case 1000 ms (1s)
-                timerInterval = setInterval(() => {
+                let timerInterval = function(time) {
+                    let timer_Interval = setInterval(() => {
+                        // The amount of time passed increments by one
+                        timePassed = timePassed += 1;
+                        timeLeft = time - timePassed;
 
-                    // The amount of time passed increments by one
-                    timePassed = timePassed += 1;
-                    timeLeft = START_TIME - timePassed;
+                        // The time left label is updated
+                        document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+                        setCircleDasharray();
 
-                    // The time left label is updated
-                    document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
-                    setCircleDasharray();
-
-                    if (timeLeft === 0) {
-                        clearInterval(timerInterval);
-                        if (breakFlag === 0) {
-                            breakFlag = 1;
+                        if (timeLeft === 0 && breakFlag == true) {
+                            clearInterval(timer_Interval);
+                            breakFlag = !breakFlag;
+                            startTimer(START_TIME);
                         }
+                        else if (timeLeft === 0 && breakFlag == false) {
+                            clearInterval(timer_Interval);
+                            breakFlag = !breakFlag;
+                            startTimer(BREAK_TIME);
+                        }
+                    }, 1000);
+                }
+                timerInterval(timeLeft);
 
-                    }
-                }, 1000);
+                // Divides time left by the defined time limit.
+                function calculateTimeFraction() {
+                    const rawTimeFraction = timeLeft / time;
+                    return rawTimeFraction - (1 / time) * (1 - rawTimeFraction);
+                }
+
+                // Update the dasharray value as time passes, starting with 283
+                function setCircleDasharray() {
+                    const circleDasharray = `${(
+                        calculateTimeFraction() * FULL_DASH_ARRAY
+                    ).toFixed(0)} 283`;
+                    document
+                        .getElementById("base-timer-path-remaining")
+                        .setAttribute("stroke-dasharray", circleDasharray);
+                }
             }
-
-
-            // Divides time left by the defined time limit.
-            function calculateTimeFraction() {
-                const rawTimeFraction = timeLeft / START_TIME;
-                return rawTimeFraction - (1 / START_TIME) * (1 - rawTimeFraction);
-            }
-
-            // Update the dasharray value as time passes, starting with 283
-            function setCircleDasharray() {
-                const circleDasharray = `${(
-                    calculateTimeFraction() * FULL_DASH_ARRAY
-                ).toFixed(0)} 283`;
-                document
-                    .getElementById("base-timer-path-remaining")
-                    .setAttribute("stroke-dasharray", circleDasharray);
-            }
-            formatTime(timeLeft);
-            startTimer()
+            formatTime(START_TIME);
+            startTimer(START_TIME);
         }
 
         // function formatTime(time) {
@@ -155,7 +163,7 @@ class Time extends React.Component {
 
         return (
             <div id={"timer-div"}>
-                {timeControl(START_TIME, BREAK_TIME)}
+                {timeControl(this.props.sessionTime, this.props.breakTime)}
             </div>
         )
     }
@@ -260,8 +268,8 @@ class AppWrapper extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sessionTime: 600,
-            breakTime: 15,
+            sessionTime: 7,
+            breakTime: 10,
             play: false,
             status: "Session"
         };
