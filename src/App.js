@@ -36,8 +36,6 @@ class Time extends React.Component {
 
             const START_TIME = sessionTime;
             const BREAK_TIME = breakTime;
-            //let timeLeft = START_TIME;
-            //let timerInterval = null;
             let breakFlag = false;
 
             const FULL_DASH_ARRAY = 283;
@@ -68,10 +66,6 @@ class Time extends React.Component {
                         timePassed = timePassed += 1;
                         timeLeft = time - timePassed;
 
-                        // The time left label is updated
-                        document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
-                        setCircleDasharray();
-
                         if (timeLeft === 0 && breakFlag == true) {
                             clearInterval(timer_Interval);
                             breakFlag = !breakFlag;
@@ -82,6 +76,9 @@ class Time extends React.Component {
                             breakFlag = !breakFlag;
                             startTimer(BREAK_TIME);
                         }
+                        // The time left label is updated
+                        document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+                        setCircleDasharray();
                     }, 1000);
                 }
                 timerInterval(timeLeft);
@@ -105,61 +102,6 @@ class Time extends React.Component {
             formatTime(START_TIME);
             startTimer(START_TIME);
         }
-
-        // function formatTime(time) {
-        //     // The largest round integer less than or equal to the result of time divided being by 60.
-        //     const minutes = Math.floor(time / 60);
-        //
-        //     // Seconds are the remainder of the time divided by 60 (modulus operator)
-        //     let seconds = time % 60;
-        //
-        //     // If the value of seconds is less than 10, then display seconds with a leading zero
-        //     if (seconds < 10) {
-        //         seconds = `0${seconds}`;
-        //     }
-        //
-        //     // The output in MM:SS format
-        //     return `${minutes}:${seconds}`;
-        // }
-
-        // function startTimer() {
-        //     // setInterval is a method that will run code over and over at a certain interval in this case 1000 ms (1s)
-        //     timerInterval = setInterval(() => {
-        //
-        //         // The amount of time passed increments by one
-        //         timePassed = timePassed += 1;
-        //         timeLeft = START_TIME - timePassed;
-        //
-        //         // The time left label is updated
-        //         document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
-        //         setCircleDasharray();
-        //
-        //         if (timeLeft === 0) {
-        //             clearInterval(timerInterval);
-        //             if (breakFlag === 0) {
-        //                 breakFlag = 1;
-        //             }
-        //
-        //         }
-        //     }, 1000);
-        // }
-        //
-        //
-        // // Divides time left by the defined time limit.
-        // function calculateTimeFraction() {
-        //     const rawTimeFraction = timeLeft / START_TIME;
-        //     return rawTimeFraction - (1 / START_TIME) * (1 - rawTimeFraction);
-        // }
-        //
-        // // Update the dasharray value as time passes, starting with 283
-        // function setCircleDasharray() {
-        //     const circleDasharray = `${(
-        //         calculateTimeFraction() * FULL_DASH_ARRAY
-        //     ).toFixed(0)} 283`;
-        //     document
-        //         .getElementById("base-timer-path-remaining")
-        //         .setAttribute("stroke-dasharray", circleDasharray);
-        // }
 
         return (
             <div id={"timer-div"}>
@@ -231,22 +173,41 @@ class Clock extends React.Component {
 class Settings extends React.Component {
     constructor(props) {
         super(props);
-        //this.sessionTimeChange = this.sessionTimeChange.bind(this);
-        //this.breakTimeChange = this.breakTimeChange.bind(this);
+        this.handleClickSession = this.handleClickSession.bind(this);
+        this.handleClickBreak = this.handleClickBreak.bind(this);
     }
+
+    handleClickSession(e) {
+        if (e.target.value == "session-") {
+            this.props.onClickSession(this.props.sessionTime - 1);
+        }
+        else if (e.target.value == "session+"){
+            this.props.onClickSession(this.props.sessionTime + 1);
+        }
+    }
+
+    handleClickBreak(e) {
+        if (e.target.value == "break-") {
+            this.props.onClickBreak(this.props.breakTime - 1);
+        }
+        else if (e.target.value == "break+"){
+            this.props.onClickBreak(this.props.breakTime + 1);
+        }
+    }
+
 
     render() {
         return (
             <div id={"settings-div"} className={"d-flex justify-content-around"}>
                 <div id={"break-length-div"} className={"length-div"}>
-                    <button id={"break-minus-button"} className={"btn btn-light length-button btn-sm time-buttons"}>-</button>
+                    <button id={"break-minus-button"} className={"btn btn-light length-button btn-sm time-buttons"} value={"break-"} onClick={this.handleClickBreak}>-</button>
                     {this.props.breakTime}
-                    <button id={"break-plus-button"} className={"btn btn-light length-button btn-sm time-buttons"}>+</button>
+                    <button id={"break-plus-button"} className={"btn btn-light length-button btn-sm time-buttons"} value={"break+"} onClick={this.handleClickBreak}>+</button>
                 </div>
                 <div id={"session-length-div"} className={"length-div"}>
-                    <button id={"session-minus-button"} className={"btn btn-light btn-sm length-button time-buttons"}>-</button>
+                    <button id={"session-minus-button"} className={"btn btn-light btn-sm length-button time-buttons"} value={"session-"} onClick={this.handleClickSession}>-</button>
                     {this.props.sessionTime}
-                    <button id={"session-plus-button"} className={"btn btn-light btn-sm length-button time-buttons"}>+</button>
+                    <button id={"session-plus-button"} className={"btn btn-light btn-sm length-button time-buttons"} value={"session+"} onClick={this.handleClickSession}>+</button>
                 </div>
             </div>
         )
@@ -268,24 +229,25 @@ class AppWrapper extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sessionTime: 7,
+            sessionTime: 5,
             breakTime: 10,
             play: false,
             status: "Session"
         };
-        this.sessionTimeChange = this.sessionTimeChange.bind(this);
-        this.breakTimeChange = this.breakTimeChange.bind(this);
+        this.handleClickSession = this.handleClickSession.bind(this);
+        this.handleClickBreak = this.handleClickBreak.bind(this);
     }
 
-    sessionTimeChange(input) {
+    handleClickSession(sessionInput) {
         this.setState({
-            sessionTime: input
+            sessionTime: sessionInput
         });
     }
 
-    breakTimeChange(input) {
+
+    handleClickBreak(breakInput) {
         this.setState({
-            breakTime: input
+            breakTime: breakInput
         });
     }
 
@@ -303,8 +265,8 @@ class AppWrapper extends React.Component {
                         <Settings
                             sessionTime={this.state.sessionTime}
                             breakTime={this.state.breakTime}
-                            sessionChange={this.sessionTimeChange}
-                            breakChange={this.breakTimeChange}
+                            onClickSession = {this.handleClickSession}
+                            onClickBreak = {this.handleClickBreak}
                         />
                     </div>
                 </div>
